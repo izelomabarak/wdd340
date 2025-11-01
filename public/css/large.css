@@ -1,0 +1,32 @@
+:root {
+    --styling-font-title: Tektur, Georgia, serif;
+    --styling-font-text: Raleway, Georgia, sans-serif;
+    --Accent1-Color: #fffb00;
+    --Accent2-color: #060033;
+    --Title-color: #010a18;
+    --Text-color: #fcff47;
+    text-decoration: none;
+}
+
+@media only screen and (min-width: 641px) {
+    body {
+        background-image: url('/images/site/small_check.jpg');
+    }
+    div.box {
+        margin-left: 10%;
+        width: 80%;
+        background-color: aliceblue;
+    }
+    .extras {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .upgrades {
+        grid-column: 1/2;
+        grid-row: 1/2;
+    }
+    .reviews {
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+}

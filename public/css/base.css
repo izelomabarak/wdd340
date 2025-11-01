@@ -1,0 +1,125 @@
+:root {
+    --styling-font-title: Tektur, Georgia, serif;
+    --styling-font-text: Raleway, Georgia, sans-serif;
+    --Accent1-Color: #fffb00;
+    --Accent2-color: #060033;
+    --Title-color: #010a18;
+    --Text-color: #fcff47;
+    text-decoration: none;
+}
+
+h1, h2 {
+    font-family: var(--styling-font-title);
+}
+
+h1 {
+    color: var(--Accent2-color);
+}
+ 
+p {
+    font-family: var(--styling-font-text);
+}
+
+header {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    font-size: 2rem;
+}
+
+.siteName a {
+    color: var(--Title-color);
+    text-decoration: none;
+    font-family: var(--styling-font-title);
+}
+
+#tools {
+    justify-self: end;
+}
+
+#tools a {
+    color: var(--Title-color);
+    text-decoration: none;
+    font-family: var(--styling-font-title);
+}
+
+nav ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    text-decoration: none;
+    background-color: var(--Accent1-Color);
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    justify-items: center;
+    font-family: var(--styling-font-title);
+}
+
+.hero {
+    position: relative;
+}
+
+.hero img {
+    width: 100%;
+}
+
+article {
+    padding: 10px;
+}
+
+article.car {
+    position: absolute;
+    top: -30px;
+    width: 30%;
+    margin: 20px;
+    padding: .5rem;
+    background-color: #060033a1;  
+    color: var(--Text-color);  
+}
+
+article.car button {
+    padding: 10px;
+    background-color: var(--Accent1-Color);
+    padding: 10px;
+    color: var(--Title-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: var(--styling-font-title);
+}
+
+article.car button:hover {
+    padding: 10px;
+    background-color: rgb(255, 187, 0);
+}
+
+article.reviews h2 {
+    color: var(--Accent2-color);
+}
+
+article.reviews ul li {
+    font-size: 1.1rem;
+    padding: 10px;
+    font-family: var(--styling-font-text);
+    color: var(--Accent2-color);
+}
+
+.articles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    column-gap: 10px;
+}
+
+article.upgrades h2 {
+    color: var(--Accent2-color);
+}
+
+.articles figure{
+    text-align: center;
+    margin: 0;
+}
+
+.articles figure img{
+    max-height: 90px;
+    padding: 14px 50px;
+    background-color: var(--Accent1-Color);
+}
