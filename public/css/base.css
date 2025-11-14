@@ -44,16 +44,25 @@ header {
 
 nav ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    text-decoration: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     background-color: var(--Accent1-Color);
     list-style-type: none;
     margin: 0;
     padding: 10px;
     justify-items: center;
-    font-family: var(--styling-font-title);
 }
 
+nav ul li a {
+    font-family: var(--styling-font-title);
+    text-decoration: none;
+    color: var(--Accent2-color);
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: #fdff9f;
+}
+/* Home */
 .hero {
     position: relative;
 }
@@ -113,13 +122,94 @@ article.upgrades h2 {
     color: var(--Accent2-color);
 }
 
-.articles figure{
+.articles figure {
     text-align: center;
     margin: 0;
 }
 
-.articles figure img{
+.articles figure img {
     max-height: 90px;
     padding: 14px 50px;
     background-color: var(--Accent1-Color);
+}
+
+/* Inv */
+
+#inv-display{
+    display: grid;
+    grid-template-columns: 1fr;
+    list-style-type: none;
+    justify-items: center;
+    padding: 0;
+    grid: 50px;
+}
+
+#inv-display li{
+    background-color: var(--Accent1-Color);
+    border-radius: 20px;
+    border: solid 1px black;
+}
+#inv-display li a img {
+    border-radius: 20px;
+    width: 250px;
+}
+
+.namePrice {
+    display: grid;
+    place-items: center;
+}
+
+.namePrice h2 {
+    max-width: 250px;
+    text-align: center;
+}
+
+.namePrice h2 a{
+    align-self: center;
+}
+
+.namePrice hr {
+    width: 100%;
+    height: 5px;
+    background-color: var(--Title-color);
+}
+
+/* Car */
+
+#car-display-details {
+    display: grid;
+    place-items: center;
+}
+
+#car-display-details img {
+    width: 90%;
+}
+
+.carEspifications {
+    padding: 0px 10px;
+}
+
+.carEspifications h2.price {
+    background-color: #fdff9f;
+    padding: 10px 0px;
+}
+
+.carDetailsInfo2 {
+    background-color: #fdff9f;
+    padding: 10px 0px;
+    margin: 5px 0px;
+}
+
+.carDetailsInfo h2, .carDetailsInfo p, .carDetailsInfo2 h2, .carDetailsInfo2 p {
+    display: inline-block; 
+    margin: 0; 
+    vertical-align: middle; 
+}
+
+.carDetailsInfo h2, .carDetailsInfo2 h2 {
+    margin-right: 10px;
+}
+
+.carDetailsInfo, .carDetailsInfo2 {
+    padding: 10px;
 }

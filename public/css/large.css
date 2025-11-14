@@ -8,7 +8,8 @@
     text-decoration: none;
 }
 
-@media only screen and (min-width: 641px) {
+@media only screen and (min-width: 651px) {
+    /* home */
     body {
         background-image: url('/images/site/small_check.jpg');
     }
@@ -28,5 +29,20 @@
     .reviews {
         grid-column: 2/3;
         grid-row: 1/2;
+    }
+    /* Inv */
+    #inv-display{
+    grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (min-width: 1050px) {
+    /* Inv */
+    #inv-display{
+    grid-template-columns: 1fr 1fr 1fr;
+    }
+    /* Car */
+    #car-display-details{
+    grid-template-columns: 1fr 1fr;
     }
 }
