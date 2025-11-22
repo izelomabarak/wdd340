@@ -44,7 +44,7 @@ header {
 
 nav ul {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     background-color: var(--Accent1-Color);
     list-style-type: none;
     margin: 0;
@@ -140,8 +140,7 @@ article.upgrades h2 {
     grid-template-columns: 1fr;
     list-style-type: none;
     justify-items: center;
-    padding: 0;
-    grid: 50px;
+    padding: 0 5% 0 0;
 }
 
 #inv-display li{
@@ -213,3 +212,66 @@ article.upgrades h2 {
 .carDetailsInfo, .carDetailsInfo2 {
     padding: 10px;
 }
+
+/* Login */
+
+.formLogin {
+    background-color: var(--Accent2-color);
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: solid 10px var(--Accent1-Color);
+}
+
+.formLogin label, .formLogin p {
+    color: var(--Accent1-Color);
+}
+
+.formLogin button {
+    padding: 10px;
+    color: #010a18;
+    background-color: #fffb00;
+    border: solid 2px #ffffff;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px; 
+  font-weight: bold;
+}
+
+.formGroup input {
+  display: block;
+  width: 120%;
+  box-sizing: border-box; 
+  padding: 8px;
+}
+
+.formGroup span {
+  display: inline-block; 
+  max-width: 200px;
+  color: var(--Accent1-Color);
+}
+
+.SingUp {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.SingUp a {
+    color: var(--Accent1-Color);
+}
+
+input:required:invalid, input:focus:invalid {
+ background-color: #ff00004b;
+}
+ input:required:valid {
+ background-color: #00ff224b;
+ }

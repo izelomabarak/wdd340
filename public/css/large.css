@@ -9,6 +9,9 @@
 }
 
 @media only screen and (min-width: 651px) {
+    nav ul {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
     /* home */
     body {
         background-image: url('/images/site/small_check.jpg');
@@ -37,6 +40,9 @@
 }
 
 @media only screen and (min-width: 1050px) {
+    /* nav ul {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    } */
     /* Inv */
     #inv-display{
     grid-template-columns: 1fr 1fr 1fr;
