@@ -31,12 +31,12 @@ const utilities = require(".")
     errors = validationResult(req)
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav()
-      res.render("inv/add-classification", {
+      res.render("inventory/add-classification", {
         errors,
         title: "Add New Classification",
         nav,
-        classification_name
-      })
+        classification_name,
+        })
       return
     }
     next()
@@ -45,58 +45,98 @@ const utilities = require(".")
   // /*  **********************************
   // *  Login Data Validation Rules
   // * ********************************* */
-//   validate.loginRules = () => {
-//     return [
-//       body("account_email")
-//         .trim()
-//         .isEmail()
-//         .normalizeEmail()
-//         .withMessage("This Email does not have a acount, you mus log in.")
-//         .custom(async (account_email) => {
-//           const emailExists = await accountModel.checkExistingEmail(account_email)
-//           if (emailExists === 0){
-//             throw new Error("This Email does not have a acount, you mus log in.")
-//           }
-//         }),
-  
-//       body("account_password")
-//         .trim()
-//         .notEmpty()
-//         .withMessage("Incorrect Password, Tried Again")
-//         .custom(async (value, { req }) => {
-//           const account_email = req.body.account_email; 
-//           const account_password = value;
+  validate.inventoryRules = () => {
+    return [
+      body("inv_make")
+        .trim()
+        .notEmpty()
+        .isLength({ min: 3 })
+        .withMessage("Please enter a valid make."),
 
-//           const result = await accountModel.checkLoginAccount(
-//             account_email,
-//             account_password
-//           );
+      body("inv_model")
+        .trim()
+        .notEmpty()
+        .isLength({ min: 3 })
+        .withMessage("Please enter a valid model."),
 
-//           if (result === 0) {
-//             throw new Error("Incorrect Password, Try Again");
-//           }
-//         })
-//     ]
-//   }
+      body("inv_description")
+        .trim()
+        .notEmpty()
+        .withMessage("Please enter a valid description."),
+
+      body("inv_image")
+        .trim()
+        .notEmpty()
+        .isLength({ min: 3 })
+        .withMessage("Please enter a valid image."),
+
+        
+      body("inv_thumbnail")
+        .trim()
+        .notEmpty()
+        .isLength({ min: 3 })
+        .withMessage("Please enter a valid thumbnail."),
+
+        
+      body("inv_price")
+        .notEmpty()
+        .isFloat({ min: 0 })
+        .withMessage("Please enter a valid price."),
+
+        
+      body("inv_year")
+        .notEmpty()
+        .isInt({ min: 1900, max: 9999 })
+        .withMessage("Please enter a valid year."),
+
+        
+      body("inv_miles")
+        .notEmpty()
+        .isInt({ min: 0 })
+        .withMessage("Please enter a valid miles."),
+
+      body("inv_color")
+        .trim()
+        .notEmpty()
+        .withMessage("Please enter a valid color."),
+        
+      body("classification_id")
+        .trim()
+        .notEmpty()
+        .withMessage("Please enter a valid classification."),
+
+    ]
+  }
   
   /* ******************************
   * Check data and return errors or continue to registration
   * ***************************** */
-//   validate.checkLogData = async (req, res, next) => {
-//     const { account_email } = req.body
-//     let errors = []
-//     errors = validationResult(req)
-//     if (!errors.isEmpty()) {
-//       let nav = await utilities.getNav()
-//       res.render("account/login", {
-//         errors,
-//         title: "login",
-//         nav,
-//         account_email,
-//       })
-//       return
-//     }
-//     next()
-//   }
+  validate.checkInvData = async (req, res, next) => {
+    const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      let grid = await utilities.optionFormCar(classification_id)
+      res.render("inventory/add-inventory", {
+        errors,
+        title: "login",
+        nav,
+        grid,
+        classification_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image, 
+        inv_thumbnail, 
+        inv_price, 
+        inv_year, 
+        inv_miles, 
+        inv_color,
+      })
+      return
+    }
+    next()
+  }
 
 module.exports = validate

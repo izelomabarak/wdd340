@@ -10,14 +10,14 @@
 <%  }) %>
  </ul>
 <% } %>
-<div>
-    <form class="addClasification" action="/inv/add-classification" method="post">
+<div class="formsInv">
+    <form class="addInformation" action="/inv/add-inventory" method="post">
         <legend>Field Is Required</legend>
-        <div class="formClasification">
+        <div class="formInformation">
             <label for="classificationName">Classification Name: </label>
             <span>Name must be alphabetic character only</span> 
             <input type="text" id="classificationName" name="classification_name" required value="<%= locals.classification_name %>" pattern="[A-Za-z]+">
+            <button type="submit"> Add Clasification </button>
         </div>
-        <button type="submit"> Add Clasification </button>
     </form>
 </div>

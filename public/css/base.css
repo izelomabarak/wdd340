@@ -275,3 +275,34 @@ input:required:invalid, input:focus:invalid {
  input:required:valid {
  background-color: #00ff224b;
  }
+
+.formsInv {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    color: var(--Accent1-Color);
+}
+
+.formsInv legend {
+    padding: 20px;
+}
+
+.formInformation {
+    border: solid 2px #fffb00;
+    display: flex;
+    flex-direction: column; 
+    gap: 8px; /* espacio entre elementos */
+    padding: 10px;
+    margin: 20px;
+}
+
+.formInformation input {
+    width: 55%;
+}
+
+.formInformation button {
+    width: 80%;
+}
+.addInformation {
+    grid-column: 2/3;
+    background-color: var(--Accent2-color);
+}
