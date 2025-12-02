@@ -1,5 +1,8 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const Util = {}
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -116,6 +119,73 @@ Util.optionFormCar = async function (classification_id = null) {
     return classificationList
   }
   
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+ if (req.cookies.jwt) {
+  jwt.verify(
+   req.cookies.jwt,
+   process.env.ACCESS_TOKEN_SECRET,
+   function (err, accountData) {
+    if (err) {
+     req.flash("Please log in")
+     res.clearCookie("jwt")
+     return res.redirect("/account/login")
+    }
+    res.locals.accountData = accountData
+    res.locals.loggedin = 1
+    if (accountData.account_type === "Employee" || accountData.account_type === "Admin"){
+      res.locals.loggedin = 2
+    }
+    next()
+   })
+ } else {
+  next()
+ }
+}
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLoginAccount = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
+
+ /* ****************************************
+ *  Check Login Level
+ * ************************************ */
+ Util.checkLoginLevel = (req, res, next) => {
+  if (res.locals.loggedin === 2) {
+    next()
+  } else {
+    req.flash("notice", "Your acount dont have permision to use this function, only employee or admin can use this, log in whit a acoun whit this grades to acces to this page.")
+    return res.redirect("/account/login")
+  }
+ }
+
+/* ****************************************
+ *  Modify Header
+ * ************************************ */
+Util.addHeader = async (req, res, next) => {
+  res.locals.header = '';
+  if(res.locals.loggedin){
+    const account_id = res.locals.accountData.account_id
+    const accountData = await accountModel.getAccountById(account_id)
+    const name = accountData.account_firstname + " " + accountData.account_lastname
+    res.locals.header += '<a title="Click to view account" href="/account/">Welcome ' + name + '</a>';
+    res.locals.header += '<a title="Click to log in" href="/account/logout">Logout</a>';
+  } else {
+    res.locals.header += '<a title="Click to log in" href="/account/login">My Account</a>';
+  }
+  next();
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
