@@ -38,7 +38,7 @@ Util.buildClassificationGrid = async function(data){
     data.forEach(vehicle => { 
       grid += '<li>'
       grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
+      + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model 
       + 'details"><img src="' + vehicle.inv_thumbnail 
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
@@ -52,6 +52,12 @@ Util.buildClassificationGrid = async function(data){
       grid += '<span>$' 
       + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
       grid += '</div>'
+      grid += '<form id="updateForm" action="/cart/add" method="post">'
+      grid += '<input type="hidden" name="inv_id" value="' + vehicle.inv_id + '">'
+      grid += '<div class="addToCart">'
+      grid += '<button type="submit">Add to the cart</button>'
+      grid += '</div>'
+      grid += '</form>'
       grid += '</li>'
     })
     grid += '</ul>'
@@ -88,6 +94,10 @@ Util.buildCarDetailsGrid = async function(data){
     grid += '<p>' + data[0].inv_miles + '</p>'
     grid += '</div>'
     grid += '</div>'
+    grid += '<form id="updateForm" class="addToCart" action="/cart/add" method="post">'
+    grid += '<input type="hidden" name="inv_id" value="' + data[0].inv_id + '">'
+    grid += '<button type="submit">Add to the cart</button>'
+    grid += '</form>'
     grid += '</div>'
     grid += '</div>'
   } else { 
@@ -178,12 +188,99 @@ Util.addHeader = async (req, res, next) => {
     const account_id = res.locals.accountData.account_id
     const accountData = await accountModel.getAccountById(account_id)
     const name = accountData.account_firstname + " " + accountData.account_lastname
+    res.locals.header += '<a class="buyCart" href="/cart/">Check Your Cart</a>'
     res.locals.header += '<a title="Click to view account" href="/account/">Welcome ' + name + '</a>';
-    res.locals.header += '<a title="Click to log in" href="/account/logout">Logout</a>';
+    res.locals.header += '<a title="Click to logout" href="/account/logout">Logout</a>';
   } else {
     res.locals.header += '<a title="Click to log in" href="/account/login">My Account</a>';
   }
   next();
+}
+
+/* ****************************************
+* Create List of Items
+* ************************************ */
+Util.getCart = async function(data){
+  let grid
+  if(data.length > 0){
+    grid = '<ul id="cart-display">'
+    data.forEach(vehicle => { 
+      grid += '<li>'
+      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
+      + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model + 'details"><img src="' + vehicle.inv_thumbnail 
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+      +' on CSE Motors" /></a>'
+      grid += '<h2>'
+      grid += '<a href="../../inv/detail/'+ vehicle.inv_id +'" title="View ' 
+      + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
+      + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+      grid += '</h2>'
+      grid += '<div class="buttons">'
+      grid += '<form id="updateForm" class="addInformation" action="/cart/add" method="post">'
+      grid += '<input type="hidden" name="inv_id" value="' + vehicle.inv_id + '">'
+      grid += '<button type="submit" >Add More</button>'
+      grid += '</form>'
+      grid += '<form id="updateForm" class="addInformation" action="/cart/eliminate" method="post">'
+      grid += '<input type="hidden" name="inv_id" value="' + vehicle.inv_id + '">'
+      grid += '<button type="submit" >Rest Item</button>'
+      grid += '</form>'
+      grid += '</div>'
+      const numberItems = parseFloat(vehicle.cart_quantity)
+      const priceP = parseFloat(vehicle.inv_price)
+      const priceFinal = numberItems * priceP
+      grid += '<div class="values">'
+      grid += '<span>Price: $' 
+      + new Intl.NumberFormat('en-US').format(priceFinal) + '</span>'
+      grid += '<p>Number of Items: ' + vehicle.cart_quantity + '</p>'
+      grid += '</div>'
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else { 
+    grid = '<p class="notice">Sorry, your cart is empty.</p>'
+  }
+  return grid
+}
+
+/* ****************************************
+* Get Total Cost of the Cart
+* ************************************ */
+Util.getTotal = async function(data){
+  let grid
+  let total = 0;
+  if(data.length > 0){
+    data.forEach(vehicle => { 
+      let cost = parseFloat(vehicle.inv_price);
+      cost = cost * parseFloat(vehicle.cart_quantity)
+      total = total + cost;
+    })
+    let taxes = total * .0825
+    const shipping = 40
+    let totalCost = total + taxes + shipping
+    grid = '<span>Total: $' + new Intl.NumberFormat('en-US').format(total) + '</span>'
+    grid += '<span>Taxes: $' + new Intl.NumberFormat('en-US').format(taxes) + '</span>'
+    grid += '<span>Shipping: $' + new Intl.NumberFormat('en-US').format(shipping) + '</span>'
+    grid += '<span>Final Cost: $' + new Intl.NumberFormat('en-US').format(totalCost) + '</span>'
+  } else { 
+    grid = '<p class="notice">Sorry, your cart is empty.</p>'
+  }
+  return grid
+}
+
+/* ****************************************
+* Get Total Cost of the Cart
+* ************************************ */
+Util.getAmountTotal = async function(data){
+  let total = 0;
+  data.forEach(vehicle => { 
+    let cost = parseFloat(vehicle.inv_price);
+    cost = cost * parseFloat(vehicle.cart_quantity)
+    total = total + cost;
+  })
+  let taxes = total * .0825
+  const shipping = 40
+  let totalCost = total + taxes + shipping
+  return totalCost
 }
 
 /* ****************************************

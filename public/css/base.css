@@ -173,6 +173,22 @@ article.upgrades h2 {
     background-color: var(--Title-color);
 }
 
+.addToCart {
+    display: flex;
+    justify-content: center;
+}
+
+.addToCart button{
+    padding: 10px;
+    background-color: var(--Accent2-color);
+    color: var(--Accent1-Color);
+    font-family: var(--styling-font-title);
+}
+
+.addToCart button:hover{
+    color: #5747e9;
+}
+
 /* Car */
 
 #car-display-details {
@@ -223,6 +239,7 @@ article.upgrades h2 {
     justify-content: center;
     padding: 10px;
     border: solid 10px var(--Accent1-Color);
+    color: var(--Accent1-Color);
 }
 
 .formLogin label, .formLogin p {
@@ -305,4 +322,75 @@ input:required:invalid, input:focus:invalid {
 .addInformation {
     grid-column: 2/3;
     background-color: var(--Accent2-color);
+}
+
+/* Cart */
+#cart-display {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+#cart-display li {
+    list-style: none;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: var(--Accent1-Color);
+}
+
+#cart-display li img{
+    padding: 20px;
+}
+
+.buttons, .values{
+    padding: 20px;
+}
+
+.values{
+    color: var(--Accent2-color);
+    font-family: var(--styling-font-title);
+}
+
+.buttons form {
+    margin: 30px;
+}
+
+.buttons form button {
+    padding: 10px;
+    background-color: var(--Accent2-color);
+    color: var(--Accent1-Color);
+    font-family: var(--styling-font-title);
+}
+
+.total {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: var(--Accent2-color);
+    border: 20px;
+}
+
+.total span {
+    color: var(--Text-color);
+    font-family: var(--styling-font-title);
+    border: solid #fbff00 2px;
+}
+
+.buy {
+    display: block;
+    padding: 10px;
+    background-color: var(--Title-color);
+    color: var(--Accent1-Color);
+    border: solid var(--Accent1-Color) 2px;
+    font-family: var(--styling-font-title);
+    margin: 20px;
+    width: 13%;
+}
+
+.buy:hover {
+    background-color: #fdff9f;
+}
+
+#checkoutSubmit:hover {
+    background-color: #fdff9f;
 }

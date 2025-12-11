@@ -1,0 +1,55 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+<div class="formLogin">
+    <form action="/cart/buy" method="post">
+        <fieldset>
+            <legend>Name</legend>
+            <div class="checkout_name">
+                <label for="fname">First Name:</label>
+                <input type="text" name="firstname" id="fname" required value="<%= locals.firstname %>">
+                <label for="lname">Last Name:</label>
+                <input type="text" name="lastname" id="lname" required value="<%= locals.lastname %>">
+            </div>
+            <legend>Address</legend>
+            <div class="checkout__address">
+                <label for="street">Street Address:</label>
+                <input type="text" name="street" id="street" required value="<%= locals.street %>">
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city" required value="<%= locals.city %>">
+                <label for="state">State:</label>
+                <input type="text" name="state" id="state" required value="<%= locals.state %>">
+                <label for="zip">Zip:</label>
+                <input type="text" name="zip" id="zip" required value="<%= locals.zip %>">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Payment</legend>
+            <div class="checkout_payment">
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" name="cardNumber" id="cardNumber" required>
+                <label for="expiration">Expiration:</label>
+                <input type="text" name="payment_expiration" id="expiration" required value="<%= locals.payment_expiration %>">
+                <label for="code">CVV:</label>
+                <input type="text" name="payment_code" id="code" required value="<%= locals.payment_code %>">
+            </div>
+        </fieldset>
+
+        <fieldset class="checkout-summary">
+            <legend>Order Summary</legend>
+            <%- total %>
+        </fieldset>
+
+        <button type="submit" id="checkoutSubmit">Confirm Payment</button>
+    </form>
+</div>
